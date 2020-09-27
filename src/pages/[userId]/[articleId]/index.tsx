@@ -2,6 +2,9 @@ import * as React from 'react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useGetArticleQuery } from '@/generated/graphql';
+import Error from 'next/error';
+
+import styles from './index.module.css';
 
 const Index: NextPage = () => {
   const router = useRouter();
@@ -21,9 +24,25 @@ const Index: NextPage = () => {
     return <p>{error.toString()}</p>
   }
 
+  if (!data || !data.articles_by_pk) {
+    return <Error statusCode={404} />
+  }
+
+  const { user, subject, content } = data.articles_by_pk;
+
   return (
-    <div>
-      {JSON.stringify(data)}
+    <div className={styles.contentContainer}>
+      <h1 className={styles.subject}>{subject}</h1>
+      <div className={styles.userContainer}>
+        <div><img className={styles.userIcon} src="/profile.png" alt="profile" /></div>
+        <div>
+          <div className={styles.userText}>
+          <div className={styles.userId}>{user.displayId}</div>
+          <span className={styles.userName}>{user.displayName}</span>
+          </div>
+        </div>
+      </div>
+      <div className={styles.content}>{content}</div>
     </div>
   );
 };

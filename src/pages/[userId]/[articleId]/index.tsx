@@ -3,6 +3,7 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useGetArticleQuery } from '@/generated/graphql';
 import Error from 'next/error';
+import { Article } from '@/components/article';
 
 import styles from './index.module.css';
 
@@ -37,12 +38,14 @@ const Index: NextPage = () => {
         <div><img className={styles.userIcon} src="/profile.png" alt="profile" /></div>
         <div>
           <div className={styles.userText}>
-          <div className={styles.userId}>{user.displayId}</div>
-          <span className={styles.userName}>{user.displayName}</span>
+            <div className={styles.userId}>{user.displayId}</div>
+            <span className={styles.userName}>{user.displayName}</span>
           </div>
         </div>
       </div>
-      <div className={styles.content}>{content}</div>
+      <div className={styles.content}>
+        <Article content={content} />
+      </div>
     </div>
   );
 };

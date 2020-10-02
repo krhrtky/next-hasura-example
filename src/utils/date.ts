@@ -32,9 +32,12 @@ export const formatDate = (d: Date, now: Date): FormattedDate => {
 
   const datetime = [date, time].join(' ');
 
+  const past = (now.getTime() - d.getTime()) / 1000;
+  const isNew = past < 24 * 60 * 60 * 7;
+
   return {
     datetime,
-    isNew: true,
+    isNew,
   };
 }
 

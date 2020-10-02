@@ -25,12 +25,10 @@ export const formatDate = (d: Date, now: Date): FormattedDate => {
     { value: hour },
     ,
     { value: minute },
-    ,
-    { value: second },
   ] = dtf.formatToParts(d);
 
   const date = [year, month, day].join('/');
-  const time = [hour, minute, second].join(':');
+  const time = [hour, minute].join(':');
 
   const datetime = [date, time].join(' ');
 

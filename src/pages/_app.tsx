@@ -2,6 +2,7 @@ import { AppProps } from 'next/app';
 import { ApolloClient, InMemoryCache, HttpLink, ApolloProvider } from '@apollo/client';
 
 import 'minireset.css';
+import '../base.css'
 
 const createApolloClient = () => {
   return new ApolloClient({

@@ -1,7 +1,8 @@
-import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { NextPage } from 'next';
 import styles from './index.module.css';
 import { Editor } from '@/components/editor';
+import { Button } from '@/components/button';
 
 const PostPage: NextPage = () => {
   const [subject, setSubject] = useState('');
@@ -29,6 +30,7 @@ const PostPage: NextPage = () => {
         placeholder="本文を書きましょう"
         className={styles.editor}
       />
+      <Button className={styles.submitButton}>投稿する</Button>
     </div>
   )
 }

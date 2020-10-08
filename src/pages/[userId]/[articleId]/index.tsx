@@ -5,9 +5,10 @@ import { useGetArticleQuery } from '@/generated/graphql';
 import Error from 'next/error';
 import { Article } from '@/components/article';
 import { SiteHeader } from '@/components/siteHeader';
+import { UserIcon } from '@/components/userIcon';
+import { formatDate } from '@/utils/date';
 
 import styles from './index.module.css';
-import { formatDate } from '@/utils/date';
 
 const Index: NextPage = () => {
   const router = useRouter();
@@ -45,7 +46,9 @@ const Index: NextPage = () => {
       <div className={styles.contentContainer}>
         <h1 className={styles.subject}>{subject}</h1>
         <div className={styles.userContainer}>
-          <div><img className={styles.userIcon} src="/profile.png" alt="profile" /></div>
+          <div>
+            <UserIcon src="/profile.png" />
+          </div>
           <div>
             <div className={styles.userText}>
               <div className={styles.userId}>{user.displayName} @{user.displayId}</div>

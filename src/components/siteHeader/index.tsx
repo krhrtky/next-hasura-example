@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import { useRouter } from 'next/router';
 
 import styles from './index.module.css';
+import { UserIcon } from '@/components/userIcon';
 
 export { SiteHeaderItem } from './item';
 
@@ -28,7 +29,7 @@ export const SiteHeader: React.FC<Props> = ({ left, right }) => {
   const rightElement = right ? (
     right
   ) : (
-    <img className={styles.userIcon} src="/profile.png" alt="profile" />
+    <UserIcon src="/profile.png" />
   );
 
   return (

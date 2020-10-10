@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useGetArticleQuery } from '@/generated/graphql';
+import { useGetArticleQuery, User } from '@/generated/graphql';
 import Error from 'next/error';
 import { Article } from '@/components/article';
 import { SiteHeader } from '@/components/siteHeader';
@@ -9,6 +9,41 @@ import { UserIcon } from '@/components/userIcon';
 import { formatDate } from '@/utils/date';
 
 import styles from './index.module.css';
+
+type ArticleHeaderProps = {
+  subject: string;
+  user: Pick<User, 'displayId' | 'displayName'>;
+  publishedAt: string;
+};
+
+const ArticleHeader: React.FC<ArticleHeaderProps> = ({
+  subject,
+  user,
+  publishedAt,
+}) => {
+  const { datetime, isNew } = formatDate(new Date(publishedAt), new Date());
+
+  return (
+    <>
+      <h1 className={styles.subject}>{subject}</h1>
+      <div className={styles.userContainer}>
+        <div>
+          <UserIcon src="/profile.png" />
+        </div>
+        <div className={styles.userText}>
+          <div className={styles.userId}>{user.displayName} @{user.displayId}</div>
+          <span className={styles.publishedAt}>
+                <span>
+                  {datetime}
+                </span>
+            {isNew ? <span className={styles.newContent}>New</span> : ''}
+              </span>
+        </div>
+      </div>
+    </>
+  );
+}
+
 
 const Index: NextPage = () => {
   const router = useRouter();
@@ -38,29 +73,11 @@ const Index: NextPage = () => {
     return <Error statusCode={404} />
   }
 
-  const { datetime, isNew } = formatDate(new Date(publishedAt), new Date());
-
   return (
     <>
       <SiteHeader />
       <div className={styles.contentContainer}>
-        <h1 className={styles.subject}>{subject}</h1>
-        <div className={styles.userContainer}>
-          <div>
-            <UserIcon src="/profile.png" />
-          </div>
-          <div>
-            <div className={styles.userText}>
-              <div className={styles.userId}>{user.displayName} @{user.displayId}</div>
-              <span className={styles.publishedAt}>
-              <span>
-                {datetime}
-              </span>
-                {isNew ? <span className={styles.newContent}>New</span> : ''}
-            </span>
-            </div>
-          </div>
-        </div>
+        <ArticleHeader subject={subject} user={user} publishedAt={publishedAt} />
         <div className={styles.content}>
           <Article content={content} />
         </div>

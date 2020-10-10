@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './index.module.css';
+import { formatArticle } from '@/utils/articles';
 
 
 type ParagraphProps = {
@@ -17,7 +18,7 @@ export const Article: React.FC<ArticleProps> = ({ content }) => {
   console.log(content.split(/\n/))
   return (
     <>
-      {content.split(/\n/).map((p, i) => (
+      {formatArticle(content).map((p, i) => (
         <Paragraph p={p} key={i} />
       ))}
     </>
